@@ -1,3 +1,4 @@
+import RegisterPage from "../../Pages/register";
 import Button from "../Elements/Button";
 import InputForm from "../Elements/Input";
 
