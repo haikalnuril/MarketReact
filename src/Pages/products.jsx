@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button";
 import CardProduct from "../components/Fragments/CardProduct";
 
@@ -62,6 +62,16 @@ const ProductPage = () => {
         }
     }
 
+    const totalPriceRef = useRef(null);
+
+    useEffect(() => {
+        if(cart.length > 0) {
+            totalPriceRef.current.style.display = "table-row";
+        } else {
+            totalPriceRef.current.style.display = "none";
+        }
+    }, [cart]);
+
     return (
         <>
             <div className="flex justify-end h-10 bg-blue-600 text-white items-center p-10">
@@ -110,7 +120,7 @@ const ProductPage = () => {
                                     </tr>
                                 )
                             })}
-                            <tr>
+                            <tr ref={totalPriceRef}>
                                 <td colSpan={3}><b>Total Price</b></td>
                                 <td><b>Rp. {(totalPrice).toLocaleString('id-ID', {styles: 'currency', currency: 'IDR'})}</b></td>
                             </tr>
