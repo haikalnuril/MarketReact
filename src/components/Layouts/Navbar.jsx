@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { useLogin } from "../../hooks/useLogin";
 import Button from "../Elements/Button";
+import {DarkMode} from "../../context/DarkMode";
 
 const Navbar = () => {
     const username = useLogin();
+    const { isDarkMode, setIsDarkMode } = useContext(DarkMode);
     const [totalCart, setTotalCart] = useState(0);
     const cart = useSelector((state) => state.cart.data);
 
@@ -14,6 +16,7 @@ const Navbar = () => {
             setTotalCart(sum);
         }
     }, [cart]);
+
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -27,6 +30,9 @@ const Navbar = () => {
             <div className="flex items-center bg-gray-800 p-2 rounded-md ml-5">
                 {totalCart}
             </div>
+            <button className='absolute left-5 top-4 bg-blue-600 p-2 text-white rounded' onClick = {() => setIsDarkMode(!isDarkMode)}>
+                {isDarkMode ? "Light Mode" : "Dark Mode"}
+            </button>
         </div>
     );
 }
